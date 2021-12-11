@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ template "oracle-proxy.fullname" . }}
+  labels:
+    app: {{ template "oracle-proxy.name" . }}
+    chart: {{ template "oracle-proxy.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ template "oracle-proxy.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ template "oracle-proxy.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      initContainers:
+      - name: init
+        image: {{ .Values.init.image.repository }}:{{ .Values.init.image.tag }}
+        imagePullPolicy: {{ .Values.init.image.pullPolicy }}
+        envFrom:
+        - configMapRef:
+            name: {{ template "oracle-proxy.fullname" . }}-init
+      containers:
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: http
+          containerPort: 3000
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+        envFrom:
+        - configMapRef:
+            name: {{ template "oracle-proxy.fullname" . }}
+        - secretRef:
+            name: {{ template "oracle-proxy.fullname" . }}
+      imagePullSecrets:
+      - name: {{ .Values.image.imagePullSecrets.name }}

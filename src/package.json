@@ -1,0 +1,43 @@
+{
+  "name": "oracle-proxy",
+  "version": "12.1.4",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "audit:resolve": "SHELL=sh resolve-audit",
+    "audit:check": "SHELL=sh check-audit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "start": "node index.js",
+    "test": "jest test/",
+    "test:integration": "jest test/integration"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/casablanca-project/koa-service-template.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/casablanca-project/koa-service-template/issues"
+  },
+  "homepage": "https://github.com/casablanca-project/koa-service-template#readme",
+  "devDependencies": {
+    "eslint": "^8.4.1",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.25.3",
+    "jest": "^27.4.3",
+    "npm-audit-resolver": "^2.1.0",
+    "supertest": "^4.0.2"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "dotenv": "^8.1.0",
+    "glob": "^7.1.4",
+    "koa": "^2.7.0",
+    "koa-body": "^4.1.1",
+    "koa-router": "^7.4.0",
+    "mysql2": "^1.7.0",
+    "node-fetch": "^2.6.0"
+  }
+}

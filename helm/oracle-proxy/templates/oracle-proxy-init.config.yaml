@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "oracle-proxy.fullname" . }}-init
+  labels:
+    app: {{ template "oracle-proxy.fullname" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  DB_HOST: {{ .Values.init.config.db_host | quote }}
+  DB_PORT: {{ .Values.init.config.db_port | quote }}
+  DB_NAME: {{ .Values.init.config.db_database | quote }}
+  DB_USER: {{ .Values.init.config.db_user | quote }}
+  DB_PASSWORD: {{ .Values.init.config.db_password | quote }}
+  SQL_VALUES_ORACLE_ENDPOINT_CREATED_BY: {{ .Values.init.config.createdBy | quote }}
+  SQL_VALUES_ORACLE_ENDPOINT_VALUE: {{ include "oracle-proxy.fullname" . | quote }}
+  SQL_VALUES_PARTY_ID_TYPE_NAME: {{ .Values.init.config.partyIdName | quote }}
+  SQL_VALUES_PARTY_ID_TYPE_DESCRIPTION: {{ .Values.init.config.partyIdDesc | quote }}

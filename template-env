@@ -1,0 +1,27 @@
+
+# The mysql host hostname
+DB_HOST=mysql
+
+# The mysql host port
+DB_PORT=3306
+
+# The mysql user name
+DB_USER=user
+
+# The mysql password
+DB_PASSWORD=password
+
+# The local port to listen for requests on
+LISTEN_PORT=3002
+
+# Dev/production
+NODE_ENV=development
+
+# Moroccos API for MSISDN
+MOROCCOS_API=http://this-is-a-mock-website.com
+
+# PATHFINDER URL
+PATHFINDER_ENDPOINT=http://localhost
+
+# PATHFINDER Port
+PATHFINDER_PORT=3000

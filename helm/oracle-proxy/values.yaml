@@ -1,0 +1,39 @@
+image:
+  repository: casablanca-casa-docker-release.jfrog.io/oracle-proxy
+  tag: v12.1.0
+  pullPolicy: Always
+  imagePullSecrets:
+    name: dock-casa-secret
+
+service:
+  type: ClusterIP
+  port: 80
+
+db_common: &db_common
+  db_host: 'mysql'
+  db_port: '3306'
+  db_user: 'root'
+  db_password: 'root'
+  db_database: 'central_ledger'
+
+
+db:
+  protocol: 'mysql'
+  <<: *db_common
+init:
+  config:
+    <<: *db_common
+    createdBy: 'Oracle Proxy'
+    partyIdName: 'MSISDN'
+    partyIdDesc: 'A proxy to redirect traffic between the ALS Pathfinder and other Mobile APIS'
+  image:
+    repository: casablanca-casa-docker-release.jfrog.io/oracles-init
+    tag: v12.1.0
+    pullPolicy: Always
+
+config:
+  listenPort: 3000
+  pathfinderEndpoint: 'als-oracle-pathfinder'
+  pathfinderPort: 80
+  moroccosApi: 'http://example.com'
+  moroccoOrangeFspId: 'orangeMorocco'
